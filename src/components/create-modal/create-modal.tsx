@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useFoodDataMutate } from '../../hooks/useFoodDataMutate';
+import { usePostagemDataMutate } from '../../hooks/usePostagemDataMutate';
 import { PostagemData } from '../../interface/PostagemData';
 
 import "./modal.css";
@@ -27,13 +27,12 @@ export function CreateModal({ closeModal }: ModalProps){
     const [titulo, setTitulo] = useState("");
     const [mensagem, setMensagem] = useState("");
     const [instituicao, setInstituicao] = useState("");
-    const { mutate, isSuccess, isLoading } = useFoodDataMutate();
+    const { mutate, isSuccess, isLoading } = usePostagemDataMutate();
 
     const submit = () => {
         const postagemData: PostagemData = {
             titulo, 
-            mensagem,
-            instituicao
+            mensagem
         }
         mutate(postagemData)
     }
@@ -50,7 +49,6 @@ export function CreateModal({ closeModal }: ModalProps){
                 <form className="input-container">
                     <Input label="titulo" value={titulo} updateValue={setTitulo}/>
                     <Input label="mensagem" value={mensagem} updateValue={setMensagem}/>
-                    <Input label="instituicao" value={instituicao} updateValue={setInstituicao}/>
                 </form>
                 <button onClick={submit} className="btn-secondary">
                     {isLoading ? 'postando...' : 'postar'}
